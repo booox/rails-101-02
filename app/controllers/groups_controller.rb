@@ -20,7 +20,7 @@ class GroupsController < ApplicationController
 
     # create 
     def create
-        @group = Group.new(group_parmas)
+        @group = Group.new(group_params)
 
         if @group.save
             redirect_to groups_path
@@ -33,9 +33,11 @@ class GroupsController < ApplicationController
     def update 
         @group = Group.find(params[:id])
 
-        @group.update(group_parmas)
-
-        redirect_to groups_path, notice: "Update Success"
+        if @group.update(group_params)
+            redirect_to groups_path, notice: "Update Success"
+        else
+            render :edit
+        end
     end
 
     # destroy 
@@ -49,7 +51,7 @@ class GroupsController < ApplicationController
 
     private
 
-    def group_parmas
+    def group_params
         params.require(:group).permit(:title, :description)
     end
 end
