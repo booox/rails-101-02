@@ -21,9 +21,12 @@ class GroupsController < ApplicationController
     # create 
     def create
         @group = Group.new(group_parmas)
-        @group.save
 
-        redirect_to groups_path
+        if @group.save
+            redirect_to groups_path
+        else
+            render :new
+        end
     end
 
     # update 
