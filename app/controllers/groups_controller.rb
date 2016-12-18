@@ -3,10 +3,17 @@ class GroupsController < ApplicationController
         @groups = Group.all
     end
 
+    # new
     def new
         @group = Group.new
     end
+    
+    # show
+    def show
+        @group = Group.find(params[:id])
+    end
 
+    # create 
     def create
         @group = Group.new(group_parmas)
         @group.save
